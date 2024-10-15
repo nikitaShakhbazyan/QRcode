@@ -5,11 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR Code Generator</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #qrcode {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
   <div id="qrcode"></div>
   <script>
-
     const phoneNumber = '1234567890'; 
     const message = 'Hello, I would like to chat with you!';
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -17,7 +30,7 @@
     const qrcode = new QRCode(document.getElementById('qrcode'), {
       text: url,
       width: 300,
-      height: 300
+      height: 300,
     });
   </script>
 </body>
