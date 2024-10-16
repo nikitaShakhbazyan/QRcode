@@ -8,30 +8,48 @@
   <style>
     body {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
     #qrcode {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+    <h1>Номер whatsapp</h1>
+  <input type="text" id="phoneNumber" placeholder="Enter phone number" />
+    <h1>Сообщение</h1>
+  <input type="text" id="message" placeholder="Enter message" />
   <div id="qrcode"></div>
   <script>
-    const phoneNumber = '+995593915646'; 
-    const message = 'Здраствуйте';
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    let phoneNumber = '+995593915646'; 
+    let message = 'Здраствуйте';
+    
+    function generateQRCode() {
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      document.getElementById('qrcode').innerHTML = '';
+      new QRCode(document.getElementById('qrcode'), {
+        text: url,
+        width: 300,
+        height: 300,
+      });
+    }
 
-    const qrcode = new QRCode(document.getElementById('qrcode'), {
-      text: url,
-      width: 300,
-      height: 300,
+    document.getElementById('phoneNumber').addEventListener('input', (event) => {
+      phoneNumber = event.target.value;
+      generateQRCode();
     });
+
+    document.getElementById('message').addEventListener('input', (event) => {
+      message = event.target.value;
+      generateQRCode();
+    });
+
+    generateQRCode();
   </script>
 </body>
 </html>
