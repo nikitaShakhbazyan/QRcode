@@ -17,17 +17,21 @@
     #qrcode {
       margin-top: 20px;
     }
+    #saveBtn {
+      margin-top:2%;
+    }
   </style>
 </head>
 <body>
-    <h1>Номер whatsapp</h1>
+  <h1>Номер WhatsApp</h1>
   <input type="text" id="phoneNumber" placeholder="Enter phone number" />
-    <h1>Сообщение</h1>
+  <h1>Сообщение</h1>
   <input type="text" id="message" placeholder="Enter message" />
   <div id="qrcode"></div>
+  <button id="saveBtn">Сохранить QR-код</button>
   <script>
     let phoneNumber = '+995593915646'; 
-    let message = 'Здраствуйте';
+    let message = 'Здравствуйте';
     
     function generateQRCode() {
       const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -47,6 +51,15 @@
     document.getElementById('message').addEventListener('input', (event) => {
       message = event.target.value;
       generateQRCode();
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const qrCanvas = document.querySelector('#qrcode canvas');
+      const imgData = qrCanvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'qrcode.png';
+      link.click();
     });
 
     generateQRCode();
